@@ -26,8 +26,8 @@ export class Request {
         return response.data;
       },
       (err) => {
-        //   console.log(err.response.data);
-        return err.response.data;
+        ElMessage.error(err.response.data);
+        throw new Error("请求失败,请检查", err.response.data);
       }
     );
 

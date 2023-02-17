@@ -5,7 +5,7 @@ if (import.meta.env.DEV) {
   BASE_URL = "http://152.136.185.210:5000";
 } else {
   //   生产环境
-  BASE_URL = "test";
+  BASE_URL = "http://152.136.185.210:4000";
 }
 const TIMEOUT = 5000;
 

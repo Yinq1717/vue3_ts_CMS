@@ -16,7 +16,7 @@ import { request } from "@/service";
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("@/assets/image/login_bj.jpg");
+  background-image: url("@/assets/image/bj3.jpg");
   background-size: cover;
 }
 </style>

@@ -1,22 +1,21 @@
 <template>
   <div class="login-panel">
     <h2 class="title">后台管理系统</h2>
-    <el-tabs stretch type="border-card" v-model="loginMode" class="demo-tabs">
+    <el-tabs
+      stretch
+      type="border-card"
+      v-model="loginMode"
+      class="demo-tabs"
+      @tab-change="handlerTabChange"
+    >
       <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><UserFilled /></el-icon>
-            <span>账号登陆</span>
+            <span>帐号登陆</span>
           </span>
         </template>
-        <el-form :model="accountForm" size="large">
-          <el-form-item label="账号">
-            <el-input v-model="accountForm.username" />
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="accountForm.password" type="password" />
-          </el-form-item>
-        </el-form>
+        <panel-account ref="refAccount"></panel-account>
       </el-tab-pane>
       <el-tab-pane name="phone">
         <template #label>
@@ -25,15 +24,7 @@
             <span>手机登录</span>
           </span>
         </template>
-        <el-form :model="phoneForm" size="large">
-          <el-form-item label="手机号">
-            <el-input v-model="phoneForm.phone" />
-          </el-form-item>
-          <el-form-item label="验证码" class="code">
-            <el-input v-model="phoneForm.code" class="code-input" />
-            <el-button class="code-btn" type="primary">获取验证码</el-button>
-          </el-form-item>
-        </el-form>
+        <panel-phone ref="refPhone"></panel-phone>
       </el-tab-pane>
     </el-tabs>
     <div class="controls">
@@ -43,6 +34,7 @@
         color="red"
         size="small"
       ></el-checkbox>
+
       <el-link type="primary" :underline="false" style="font-size: 12px"
         >忘记密码</el-link
       >
@@ -56,33 +48,40 @@
 </template>
 
 <script setup lang="ts">
+import { localCache } from "@/utils/cache";
 import { reactive, ref } from "vue";
+import panelAccount from "./panel-account.vue";
+import panelPhone from "./panel-phone.vue";
 
 // 收集当前处于什么登陆模式
 let loginMode = ref("account");
 
-// 账号登录表单
-const accountForm = reactive({
-  username: "coderwhy",
-  password: 123456,
-});
+let isRmbPwd = ref(true); // 是否记住密码
 
-// 手机登录表单
-const phoneForm = reactive({
-  phone: 19173130947,
-  code: 186359,
-});
-
-// 是否记住密码
-let isRmbPwd = ref(true);
+const refAccount = ref<InstanceType<typeof panelAccount>>(); // 获取到帐号组件
+const refPhone = ref<InstanceType<typeof panelPhone>>(); // 获取到手机组件
 
 // 登录按钮的点击回调
 function handlerLogin() {
   if (loginMode.value === "account") {
-    console.log(loginMode.value);
+    //   通知子组件进行登录
+    refAccount.value?.loginAction();
+    //  保存密码
+    if (isRmbPwd.value) {
+      refAccount.value?.savePassword();
+    } else {
+      //  清除密码
+      localCache.removeCache("password");
+    }
   } else {
-    console.log(loginMode.value);
+    refPhone.value?.loginAction();
   }
+}
+
+// tabs切换的回调
+function handlerTabChange() {
+  refAccount.value?.clearValidate();
+  refPhone.value?.clearValidate();
 }
 </script>
 
@@ -91,7 +90,7 @@ function handlerLogin() {
   //  border: 1px solid red;
   width: 320px;
   height: 300px;
-  padding: 40px;
+  padding: 20px 40px 40px;
   //   border: 1px solid red;
   background-color: #fff;
   border-radius: 20px;
@@ -108,14 +107,6 @@ function handlerLogin() {
       span {
         vertical-align: middle;
         margin-left: 4px;
-      }
-    }
-    .code {
-      // border: 1px solid red;
-
-      .code-input {
-        width: 50%;
-        margin-right: 7px;
       }
     }
   }

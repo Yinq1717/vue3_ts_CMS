@@ -4,15 +4,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import useCounterStore from "@/store/counter";
-
-const countStore = useCounterStore();
-const num = 2;
-const changeCount = () => {
-  countStore.changeCount(num * countStore.count);
-};
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .main {
