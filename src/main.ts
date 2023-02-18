@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import "@/assets/CSS/index.css";
-import { router } from "./router";
+import router from "./router";
 import pinia from "./store";
 import registerIcons from "./global/register-icons";
 // import ElementPlus from "element-plus";

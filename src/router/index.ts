@@ -9,8 +9,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  const token = localCache.getCache(LOGIN_TOKEN);
   if (to.path === "/main") {
-    const token = localCache.getCache(LOGIN_TOKEN);
     if (!token) {
       //  没有token
       ElMessage.warning("您还未登录，请先登录");
@@ -24,4 +24,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-export { router };
+export default router;

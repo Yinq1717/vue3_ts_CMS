@@ -11,15 +11,17 @@
       <el-form-item label="手机号" prop="phone">
         <el-input v-model="phoneForm.phone" placeholder="请输入手机号" />
       </el-form-item>
-      <el-form-item label="验证码" class="code" prop="code">
-        <el-input v-model="phoneForm.code" class="code-input" />
-        <el-button
-          class="code-btn"
-          type="primary"
-          :disabled="!phoneForm.phone"
-          @click="getCode"
-          >获取验证码</el-button
-        >
+      <el-form-item label="验证码" class="code">
+        <div class="code-containner">
+          <el-input v-model="phoneForm.code" class="code-input" />
+          <el-button
+            class="code-btn"
+            type="primary"
+            :disabled="!phoneForm.phone"
+            @click="getCode"
+            >获取验证码</el-button
+          >
+        </div>
       </el-form-item>
     </el-form>
   </div>
@@ -48,14 +50,6 @@ function validatePhone(rule: any, value: any, callback: any) {
 // 表单验证规则
 const rules: FormRules = {
   phone: [{ validator: validatePhone, trigger: "blur" }],
-  code: [
-    {
-      required: true,
-      message: "请输入验证码！",
-      trigger: "blur",
-    },
-    { pattern: /^[0-9]{6}$/, message: "验证码不合法！", trigger: "blur" },
-  ],
 };
 
 // 获取表单组件
@@ -63,7 +57,15 @@ const ruleFormRef = ref<FormInstance>();
 
 // 获取验证码
 function getCode() {
-  phoneForm.code = "666666";
+  if (!ruleFormRef.value) return;
+  ruleFormRef.value.validate((valid) => {
+    if (valid) {
+      // ElMessage.success("该功能正在开发中喔");
+      phoneForm.code = "666666";
+    } else {
+      return false;
+    }
+  });
 }
 
 // 登录行为
@@ -94,9 +96,11 @@ defineExpose({
 .code {
   // border: 1px solid red;
 
-  .code-input {
-    width: 46%;
-    margin-right: 7px;
+  .code-containner {
+    display: flex;
+    .code-btn {
+      margin-left: 6px;
+    }
   }
 }
 </style>

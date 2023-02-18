@@ -49,14 +49,18 @@
 
 <script setup lang="ts">
 import { localCache } from "@/utils/cache";
-import { reactive, ref } from "vue";
+import { ref, watch } from "vue";
 import panelAccount from "./panel-account.vue";
 import panelPhone from "./panel-phone.vue";
 
 // 收集当前处于什么登陆模式
 let loginMode = ref("account");
 
-let isRmbPwd = ref(true); // 是否记住密码
+let isRmbPwd = ref<boolean>(localCache.getCache("isRmbPwd") ?? false); // 是否记住密码
+watch(isRmbPwd, (newValue) => {
+  console.dir(newValue);
+  localCache.setCache("isRmbPwd", newValue);
+});
 
 const refAccount = ref<InstanceType<typeof panelAccount>>(); // 获取到帐号组件
 const refPhone = ref<InstanceType<typeof panelPhone>>(); // 获取到手机组件
@@ -65,14 +69,7 @@ const refPhone = ref<InstanceType<typeof panelPhone>>(); // 获取到手机组�
 function handlerLogin() {
   if (loginMode.value === "account") {
     //   通知子组件进行登录
-    refAccount.value?.loginAction();
-    //  保存密码
-    if (isRmbPwd.value) {
-      refAccount.value?.savePassword();
-    } else {
-      //  清除密码
-      localCache.removeCache("password");
-    }
+    refAccount.value?.loginAction(isRmbPwd.value);
   } else {
     refPhone.value?.loginAction();
   }
@@ -80,6 +77,7 @@ function handlerLogin() {
 
 // tabs切换的回调
 function handlerTabChange() {
+  // 清除表单验证
   refAccount.value?.clearValidate();
   refPhone.value?.clearValidate();
 }

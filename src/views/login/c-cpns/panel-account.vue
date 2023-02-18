@@ -24,10 +24,9 @@ import { localCache } from "@/utils/cache";
 
 const ruleFormRef = ref<FormInstance>();
 // 账号登录表单
-const accountForm = reactive<IAccount>({
-  name: "coderwhy",
-  password: localCache.getCache("password"),
-});
+const accountForm = reactive<IAccount>(
+  localCache.getCache("accountForm") || { name: "", password: "" }
+);
 
 // 表单验证规则
 const rules = reactive<FormRules>({
@@ -56,7 +55,7 @@ const rules = reactive<FormRules>({
 const loginStore = useLoginStore();
 
 // 登录行为
-function loginAction() {
+function loginAction(isRmbPwd: boolean) {
   if (!ruleFormRef.value) return;
   ruleFormRef.value.validate((valid) => {
     if (valid) {
@@ -65,6 +64,16 @@ function loginAction() {
       const password = accountForm.password;
       // 调用store的方法发请求登录
       loginStore.accountLoginAction({ name, password });
+
+      // 保存密码
+      if (isRmbPwd) {
+        localCache.setCache("accountForm", accountForm);
+      } else {
+        localCache.setCache("accountForm", {
+          name: accountForm.name,
+          password: "",
+        });
+      }
     } else {
       ElMessage.error("请规范输入后重新登陆!");
     }
@@ -76,19 +85,19 @@ function clearValidate() {
   ruleFormRef.value?.clearValidate();
 }
 
-// 记住密码
-function savePassword() {
-  //   console.log("test");
-  if (accountForm.password) {
-    //   已保存密码
-    localCache.setCache("password", accountForm.password);
-  }
-}
+// // 记住密码
+// function savePassword() {
+//   //   console.log("test");
+//   if (accountForm.password) {
+//     //   已保存密码
+//     localCache.setCache("password", accountForm.password);
+//   }
+// }
 
 defineExpose({
   loginAction,
   clearValidate,
-  savePassword,
+  //   savePassword,
 });
 </script>
 
