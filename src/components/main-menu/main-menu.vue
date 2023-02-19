@@ -10,7 +10,7 @@
         :collapse="isCollapse"
         text-color="#ececec"
         active-text-color="#fff"
-        :default-active="menuList[0].children[0].url"
+        :default-active="currPath"
         class="el-menu"
         :router="true"
       >
@@ -41,11 +41,29 @@
 
 <script setup lang="ts">
 import useLoginStore from "@/store/login/login";
-import { defineProps } from "vue";
-
+import { defineProps, ref, watch } from "vue";
+import router from "@/router";
 defineProps(["isCollapse"]);
 const loginStore = useLoginStore();
 const menuList = loginStore.menuList;
+
+// 记录当前的path
+const currPath = ref(menuList[0].children[0].url);
+
+// 监听路由变化，将新的path赋值给当前的path
+watch(
+  () => router.currentRoute.value.fullPath,
+  (newValue: any) => {
+    console.log("监听到了", newValue);
+    if (newValue === "/main") {
+      router.push(menuList[0].children[0].url);
+    } else {
+      currPath.value = newValue;
+    }
+  },
+  { immediate: true }
+);
+console.log("currPath", currPath.value);
 </script>
 
 <style lang="scss" scoped>

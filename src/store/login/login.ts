@@ -8,6 +8,7 @@ import type { IAccount } from "@/types";
 import { localCache } from "@/utils/cache";
 import { LOGIN_TOKEN } from "@/global/contansts";
 import router from "@/router";
+import { mapMenusToRoutes } from "@/utils/map-menu";
 
 interface ILoginState {
   token: string;
@@ -17,9 +18,9 @@ interface ILoginState {
 
 const useLoginStore = defineStore("login", {
   state: (): ILoginState => ({
-    token: localCache.getCache(LOGIN_TOKEN) ?? "",
-    userInfo: localCache.getCache("userInfo") ?? {},
-    menuList: localCache.getCache("menuList") ?? [],
+    token: "",
+    userInfo: {},
+    menuList: [],
   }),
   actions: {
     async accountLoginAction(account: IAccount) {
@@ -43,17 +44,32 @@ const useLoginStore = defineStore("login", {
         this.menuList = menuResult.data;
         localCache.setCache("menuList", menuResult.data);
 
-        this.menuList.forEach((item) => {
-          item.children.forEach((i) => {
-            console.log(i.url);
-          });
-        });
+        // 调用方法获取到用户实际的路由
+        const routes = mapMenusToRoutes(this.menuList);
+        //   将异步路由注册到main下
+        routes.forEach((item) => router.addRoute("main", item));
 
         // 跳转main
         router.push("/main");
         ElMessage.success("登陆成功!");
       } catch (error) {
         console.log(error);
+      }
+    },
+    //  手动获取浏览器缓存中的数据
+    async loadLocalCacheACtion() {
+      const token = localCache.getCache(LOGIN_TOKEN);
+      const userInfo = localCache.getCache("userInfo");
+      const menuList = localCache.getCache("menuList");
+      if (token && userInfo && menuList) {
+        this.token = token;
+        this.userInfo = userInfo;
+        this.menuList = menuList;
+
+        // 调用方法获取到用户实际的路由
+        const routes = mapMenusToRoutes(this.menuList);
+        //   将异步路由注册到main下
+        routes.forEach((item) => router.addRoute("main", item));
       }
     },
   },

@@ -62,7 +62,7 @@ function handleSwitchMenu(flag: boolean) {
     }
     .el-main {
       background-color: #ddd;
-      padding: 50px;
+      padding: 20px;
     }
   }
 }

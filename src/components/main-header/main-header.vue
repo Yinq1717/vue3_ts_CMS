@@ -90,6 +90,7 @@ function logout() {
       margin-left: 10px;
     }
     .info-container {
+      cursor: pointer;
       :global(.el-dropdown-menu__item) {
         line-height: 30px;
         color: #333;
