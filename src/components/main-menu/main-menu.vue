@@ -54,16 +54,16 @@ const currPath = ref(menuList[0].children[0].url);
 watch(
   () => router.currentRoute.value.fullPath,
   (newValue: any) => {
-    console.log("监听到了", newValue);
     if (newValue === "/main") {
+      //  main重定向到第一个子路由
       router.push(menuList[0].children[0].url);
     } else {
+      //保存当前路由信息
       currPath.value = newValue;
     }
   },
   { immediate: true }
 );
-console.log("currPath", currPath.value);
 </script>
 
 <style lang="scss" scoped>

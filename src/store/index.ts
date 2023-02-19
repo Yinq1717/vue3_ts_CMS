@@ -1,7 +1,7 @@
 import { createPinia } from "pinia";
 import type { App } from "vue";
-import useLoginStore from "./login/login";
 const pinia = createPinia();
+import useLoginStore from "./login/login";
 
 function registerStore(app: App<Element>) {
   app.use(pinia);

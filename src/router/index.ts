@@ -3,7 +3,6 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import { LOGIN_TOKEN } from "@/global/contansts";
 import { localCache } from "@/utils/cache";
 import { ElStep } from "element-plus";
-
 const routes: any[] = [
   {
     path: "/",

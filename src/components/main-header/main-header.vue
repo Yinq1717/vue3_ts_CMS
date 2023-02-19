@@ -6,7 +6,9 @@
       </el-icon>
     </div>
     <div class="header-content">
-      <div class="crumbs">系统总览</div>
+      <div class="crumbs">
+        <crumbs></crumbs>
+      </div>
       <div class="info-container">
         <el-icon size="20" color="#333"><Bell /></el-icon>
         <el-icon size="20" color="#333"><ChatDotRound /></el-icon>

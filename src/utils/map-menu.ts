@@ -22,9 +22,28 @@ export function mapMenusToRoutes(menuList: any[]) {
       //  查找到对应的路由对象
       const route = localRoutes.find((item) => item.path === subMenu.url);
       if (route) {
+        // 添加给一级路由添加重定向,重定向到用户已注册的第一个子路由
+        if (!routes.find((item) => item.path == menu.url)) {
+          routes.push({ path: menu.url, redirect: subMenu.url });
+        }
+        // 添加路由
         routes.push(route);
       }
     }
   }
   return routes;
+}
+
+// 根据当前路径过滤出菜单名
+export function mapPathToMenus(path: string, menuList: any[]) {
+  for (let menu of menuList) {
+    for (let subMenu of menu.children) {
+      if (path === subMenu.url) {
+        return [
+          { name: menu.name, path: menu.url },
+          { name: subMenu.name, path: subMenu.url },
+        ];
+      }
+    }
+  }
 }
