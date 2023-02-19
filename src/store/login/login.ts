@@ -43,6 +43,12 @@ const useLoginStore = defineStore("login", {
         this.menuList = menuResult.data;
         localCache.setCache("menuList", menuResult.data);
 
+        this.menuList.forEach((item) => {
+          item.children.forEach((i) => {
+            console.log(i.url);
+          });
+        });
+
         // 跳转main
         router.push("/main");
         ElMessage.success("登陆成功!");

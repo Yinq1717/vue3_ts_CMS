@@ -1,14 +1,18 @@
 <template>
   <div class="main-menu">
     <div class="logo">
-      <img src="@/assets/image/logo.png" /><span>Bulu-CMS</span>
+      <img src="@/assets/image/logo.png" />
+      <span class="title" v-show="!isCollapse">Bulu-CMS</span>
     </div>
     <div class="menu" router>
       <el-menu
         background-color="#3f5468"
+        :collapse="isCollapse"
         text-color="#ececec"
         active-text-color="#fff"
         :default-active="menuList[0].children[0].url"
+        class="el-menu"
+        :router="true"
       >
         <el-sub-menu
           :index="item.id + ''"
@@ -37,10 +41,11 @@
 
 <script setup lang="ts">
 import useLoginStore from "@/store/login/login";
+import { defineProps } from "vue";
 
+defineProps(["isCollapse"]);
 const loginStore = useLoginStore();
 const menuList = loginStore.menuList;
-console.log(menuList);
 </script>
 
 <style lang="scss" scoped>
@@ -53,14 +58,14 @@ console.log(menuList);
     display: flex;
     align-items: center;
     height: 50px;
-    justify-content: center;
-
+    //  justify-content: center;
     img {
       height: 70%;
-      margin-right: 10px;
+      margin: 0 16px;
     }
-    span {
+    .title {
       // color: #fff;
+      white-space: nowrap;
       font-size: 20px;
       font-weight: bold;
     }
@@ -72,6 +77,11 @@ console.log(menuList);
     width: 100%;
     .el-menu {
       // border: 1px solid red;
+      &:not(.el-menu--collapse) {
+        width: 200px;
+        //   background-color: red;
+        min-height: 400px;
+      }
       .el-sub-menu {
         //   border: 1px solid red;
 
