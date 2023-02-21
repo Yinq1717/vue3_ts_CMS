@@ -77,6 +77,10 @@ export class Request {
   delete<T = any>(config: ExpandAxiosRequestConfig<T>) {
     return this.request({ ...config, method: "DELETE" });
   }
+
+  patch<T = any>(config: ExpandAxiosRequestConfig<T>) {
+    return this.request({ ...config, method: "PATCH" });
+  }
 }
 
 // export { Request };

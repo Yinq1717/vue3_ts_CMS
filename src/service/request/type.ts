@@ -13,7 +13,7 @@ interface InterCeptions<T = AxiosResponse> {
   requestfailureFn?: (err: any) => any;
 
   // 响应成功的拦截
-  responseSuccessFn?: (response: T) => T;
+  responseSuccessFn?: (response: any) => T;
 
   // 响应失败的拦截
   responseFailureFn?: (err: any) => any;
