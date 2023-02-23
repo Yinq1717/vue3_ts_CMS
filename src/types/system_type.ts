@@ -12,6 +12,6 @@ export interface IUser {
 export interface IUserState {
   userList: IUser[];
   userCount: number;
-  roleList: any[];
-  departmentList: any[];
+  pageList: any[];
+  pageCount: number;
 }

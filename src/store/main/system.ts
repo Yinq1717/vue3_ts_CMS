@@ -4,66 +4,61 @@ import {
   reqDeleteUser,
   reqUpdateUser,
   reqAddUSer,
+  reqGetPageList,
+  reqDeletePage,
+  reqUpdatePage,
+  reqAddPage,
 } from "@/service/modules/main/system/user";
 
-import { reqGetRoleList } from "@/service/modules/main/system/role";
-import { reqGetDepartmentList } from "@/service/modules/main/system/department";
-
 import type { IUserState } from "@/types/index";
+import { ElMessage } from "element-plus";
 
 const useSystemStore = defineStore("system", {
   state: (): IUserState => ({
     userList: [],
     userCount: 0,
-    roleList: [],
-    departmentList: [],
+    pageList: [],
+    pageCount: 0,
   }),
   actions: {
-    // 获取用户列表
-    async getUserList(data?: any) {
+    //  通用的增删查改方法
+    //  查询数据
+    async getPageListAction(pageName: string, queryInfo?: any) {
       const {
         data: { list, totalCount },
-      } = await reqGetUserList(data);
-      this.userList = list;
-      this.userCount = totalCount;
+      } = await reqGetPageList(pageName, queryInfo);
+      this.pageList = list;
+      this.pageCount = totalCount;
     },
 
-    //   删除一个用户
-    async deleteUser(id: number) {
-      const { code } = await reqDeleteUser(id);
-      if (code === -1002) {
-        ElMessage.error("系统数据不能删除!");
-      } else {
+    //  删除一条数据
+    async deletePageAction(pageName: string, id: number) {
+      const { code } = await reqDeletePage(pageName, id);
+      if (code === 0) {
+        this.getPageListAction(pageName);
         ElMessage.success("删除成功!");
-        this.getUserList();
       }
     },
 
-    //  修改用户
-    async updateUser(id: any, userInfo: any) {
-      const { code } = await reqUpdateUser(id, userInfo);
+    //  修改一条数据
+    async updatePageAction(pageName: string, id: any, formData: any) {
+      const { code } = await reqUpdatePage(pageName, id, formData);
       if (code === 0) {
-        return true;
+        this.getPageListAction(pageName);
+        ElMessage.success("修改成功!");
       }
     },
 
-    //  获取角色列表
-    async getRoleList() {
-      const { data } = await reqGetRoleList({ offset: 0, size: 100 });
-      this.roleList = data.list;
-    },
+    //  添加一条数据
+    async addPageAction(pageName: string, userInfo: any) {
+      // if (pageName === "users") {
+      //   userInfo.cellphone = userInfo.cellphone;
+      // }
 
-    //  获取部门列表
-    async getDepartmentList() {
-      const { data } = await reqGetDepartmentList({ offset: 0, size: 100 });
-      this.departmentList = data.list;
-    },
-
-    //  添加用户
-    async addUser(userInfo: any) {
-      const { code } = await reqAddUSer(userInfo);
+      const { code } = await reqAddPage(pageName, userInfo);
       if (code === 0) {
-        return true;
+        this.getPageListAction(pageName);
+        ElMessage.success("修改成功!");
       }
     },
   },
