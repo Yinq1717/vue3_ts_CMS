@@ -61,8 +61,8 @@ function handleSwitchMenu(flag: boolean) {
       align-items: center;
     }
     .el-main {
-      background-color: #ddd;
-      padding: 20px;
+      background-color: #f0f2f5;
+      padding: 10px;
     }
   }
 }

@@ -47,3 +47,19 @@ export function mapPathToMenus(path: string, menuList: any[]) {
     }
   }
 }
+
+// 过滤出选中的tree子节点的id
+export function mapMenuToCheckIds(menuList: any[]): number[] {
+  const resultList: number[] = [];
+  recurrence(menuList);
+  function recurrence(menuList: any[]) {
+    for (let item of menuList) {
+      if (item.children) {
+        recurrence(item.children);
+      } else {
+        resultList.push(item.id);
+      }
+    }
+  }
+  return resultList;
+}

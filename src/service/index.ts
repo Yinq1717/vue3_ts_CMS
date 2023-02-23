@@ -13,6 +13,13 @@ const request = new Request({
         "Bearer " + localCache.getCache(LOGIN_TOKEN);
       return config;
     },
+    responseSuccessFn: (response) => {
+      if (response.code !== 0) {
+        ElMessage.error(response.data);
+        throw new Error(response.data);
+      }
+      return response;
+    },
   },
 });
 
