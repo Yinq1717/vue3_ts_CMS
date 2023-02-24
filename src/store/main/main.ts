@@ -1,7 +1,7 @@
-import { reqGetPageList } from "@/service/modules/main/system/page";
+import { reqGetPageList } from "@/service/modules/main/page";
 import { defineStore } from "pinia";
 
-const useMainStore = defineStore("main", {
+export default defineStore("main", {
   state: (): {
     roleList: any[];
     departmentList: any[];
@@ -26,5 +26,3 @@ const useMainStore = defineStore("main", {
     },
   },
 });
-
-export default useMainStore;

@@ -9,9 +9,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseCharts: typeof import('./src/components/page-charts/src/base-charts.vue')['default']
     Crumbs: typeof import('./src/components/main-header/c-cpns/crumbs.vue')['default']
-    Disable_pageList: typeof import('./src/components/main-page/disable_page-list.vue')['default']
-    Disable_pageSearch: typeof import('./src/components/main-page/disable_page-search.vue')['default']
+    Disable_pageList: typeof import("./src/components/main-page/disable_page-list.vue")["default"]
+    Disable_pageSearch: typeof import("./src/components/main-page/disable_page-search.vue")["default"]
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -60,10 +61,11 @@ declare module '@vue/runtime-core' {
     PageContent: typeof import('./src/components/page-content/page-content.vue')['default']
     PageModal: typeof import('./src/components/page-modal/page-modal.vue')['default']
     PageSearch: typeof import('./src/components/page-search/page-search.vue')['default']
+    PieCharts: typeof import('./src/components/page-charts/src/pie-charts.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    UserList: typeof import('./src/components/user/user-list.vue')['default']
-    UserModal: typeof import('./src/components/user/user-modal.vue')['default']
-    UserSearch: typeof import('./src/components/user/user-search.vue')['default']
+    UserList: typeof import("./src/components/user/user-list.vue")["default"]
+    UserModal: typeof import("./src/components/user/user-modal.vue")["default"]
+    UserSearch: typeof import("./src/components/user/user-search.vue")["default"]
   }
 }

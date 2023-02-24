@@ -1,14 +1,10 @@
 import { defineStore } from "pinia";
 import {
-  reqGetUserList,
-  reqDeleteUser,
-  reqUpdateUser,
-  reqAddUSer,
   reqGetPageList,
   reqDeletePage,
   reqUpdatePage,
   reqAddPage,
-} from "@/service/modules/main/system/user";
+} from "@/service/modules/main/page";
 
 import type { IUserState } from "@/types/index";
 import { ElMessage } from "element-plus";

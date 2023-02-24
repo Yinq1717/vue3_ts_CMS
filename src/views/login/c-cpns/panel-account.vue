@@ -33,8 +33,8 @@ const rules = reactive<FormRules>({
   name: [
     { required: true, message: "请输入帐号！", trigger: "blur" },
     {
-      pattern: /^[a-z0-9]{6,10}$/,
-      message: "必须是6~10位数字或者字母组成",
+      pattern: /^[a-zA-Z0-9]{4,10}$/,
+      message: "必须是4~10位数字或者字母组成",
       trigger: "blur",
     },
   ],
