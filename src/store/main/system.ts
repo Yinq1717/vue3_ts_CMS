@@ -12,6 +12,8 @@ import {
 
 import type { IUserState } from "@/types/index";
 import { ElMessage } from "element-plus";
+import useMainStore from "./main";
+const mainStore = useMainStore();
 
 const useSystemStore = defineStore("system", {
   state: (): IUserState => ({
@@ -36,6 +38,7 @@ const useSystemStore = defineStore("system", {
       const { code } = await reqDeletePage(pageName, id);
       if (code === 0) {
         this.getPageListAction(pageName);
+        mainStore.getRoleAndDepartmentActions();
         ElMessage.success("删除成功!");
       }
     },
@@ -45,19 +48,17 @@ const useSystemStore = defineStore("system", {
       const { code } = await reqUpdatePage(pageName, id, formData);
       if (code === 0) {
         this.getPageListAction(pageName);
+        mainStore.getRoleAndDepartmentActions();
         ElMessage.success("修改成功!");
       }
     },
 
     //  添加一条数据
     async addPageAction(pageName: string, userInfo: any) {
-      // if (pageName === "users") {
-      //   userInfo.cellphone = userInfo.cellphone;
-      // }
-
       const { code } = await reqAddPage(pageName, userInfo);
       if (code === 0) {
         this.getPageListAction(pageName);
+        mainStore.getRoleAndDepartmentActions();
         ElMessage.success("修改成功!");
       }
     },

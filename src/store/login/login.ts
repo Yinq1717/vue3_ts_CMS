@@ -8,12 +8,13 @@ import type { IAccount } from "@/types";
 import { localCache } from "@/utils/cache";
 import { LOGIN_TOKEN } from "@/global/contansts";
 import router from "@/router";
-import { mapMenusToRoutes } from "@/utils/map-menu";
+import { mapMenusToRoutes, mapMenusToPermission } from "@/utils/map-menu";
 
 interface ILoginState {
   token: string;
   userInfo: any;
   menuList: any[];
+  permissionList: string[];
 }
 
 const useLoginStore = defineStore("login", {
@@ -21,6 +22,7 @@ const useLoginStore = defineStore("login", {
     token: "",
     userInfo: {},
     menuList: [],
+    permissionList: [],
   }),
   actions: {
     async accountLoginAction(account: IAccount) {
@@ -65,6 +67,10 @@ const useLoginStore = defineStore("login", {
         this.token = token;
         this.userInfo = userInfo;
         this.menuList = menuList;
+
+        // 获取按钮权限
+        const permissionList = mapMenusToPermission(this.menuList);
+        this.permissionList = permissionList;
 
         // 调用方法获取到用户实际的路由
         const routes = mapMenusToRoutes(this.menuList);

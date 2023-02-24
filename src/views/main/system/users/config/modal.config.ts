@@ -1,6 +1,7 @@
 import useMainStore from "@/store/main/main";
+import { storeToRefs } from "pinia";
 const mainStore = useMainStore();
-
+const { roleList, departmentList } = storeToRefs(mainStore);
 export default {
   title: "用户",
   pageName: "users",
@@ -35,14 +36,14 @@ export default {
       label: "选择角色 ",
       placeholder: "请选择角色",
       type: "select",
-      options: mainStore.roleList,
+      options: roleList.value,
     },
     {
       prop: "departmentId",
       label: "选择部门",
       placeholder: "请选择部门",
       type: "select",
-      options: mainStore.departmentList,
+      options: departmentList.value,
     },
   ],
 };

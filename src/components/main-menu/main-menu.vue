@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import useLoginStore from "@/store/login/login";
-import { defineProps, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import router from "@/router";
 defineProps(["isCollapse"]);
 const loginStore = useLoginStore();

@@ -31,6 +31,7 @@ export function mapMenusToRoutes(menuList: any[]) {
       }
     }
   }
+  //   console.log(routes);
   return routes;
 }
 
@@ -61,5 +62,21 @@ export function mapMenuToCheckIds(menuList: any[]): number[] {
       }
     }
   }
+  return resultList;
+}
+
+// 过滤出按钮的权限列表
+export function mapMenusToPermission(menuList: any[]): string[] {
+  const resultList: string[] = [];
+  function recurrence(menuList: any[]) {
+    for (let item of menuList) {
+      if (item.children) {
+        recurrence(item.children);
+      } else if (item.type === 3) {
+        resultList.push(item.permission);
+      }
+    }
+  }
+  recurrence(menuList);
   return resultList;
 }

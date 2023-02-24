@@ -1,6 +1,6 @@
 export default {
-  title: "角色",
-  pageName: "role",
+  title: "类别",
+  pageName: "category",
   tableProps: [
     {
       type: "selection",
@@ -14,13 +14,8 @@ export default {
 
     {
       prop: "name",
-      label: "角色名称",
-      width: "150",
-    },
-    {
-      prop: "intro",
-      label: "角色权限",
-      width: "150",
+      label: "类别名称",
+      width: "160",
     },
     {
       type: "time",
@@ -34,7 +29,7 @@ export default {
     },
     {
       label: "操作",
-      width: "140",
+      width: "120",
       type: "handle",
     },
   ],

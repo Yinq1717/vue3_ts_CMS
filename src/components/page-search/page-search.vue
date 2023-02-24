@@ -33,6 +33,7 @@
                   <el-select
                     v-model="searchForm[item.prop]"
                     style="width: 100%"
+                    :placeholder="item.placeholder"
                   >
                     <el-option
                       v-for="(option, index) in item.options"

@@ -1,6 +1,6 @@
 import useMainStore from "@/store/main/main";
 const mainStore = useMainStore();
-mainStore.getRoleAndDepartmentActions();
+// mainStore.getRoleAndDepartmentActions();
 export default {
   pageName: "department",
   title: "部门",

@@ -6,10 +6,9 @@
       center
       width="30%"
       v-model="dialogFormVisible"
-      @closed="handleClose"
     >
       <el-form :model="formData" label-width="80" size="large" ref="addFormRef">
-        <template v-for="(item, index) in modalConfig.formItem" :key="index">
+        <template v-for="item in modalConfig.formItem" :key="item.prop">
           <el-form-item
             :label="item.label"
             :prop="item.prop"
@@ -55,10 +54,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, defineProps } from "vue";
+import { ref, reactive } from "vue";
 import type { FormInstance } from "element-plus";
 import useSystemStore from "@/store/main/system";
-import useMainStore from "@/store/main/main";
 import clearObject from "@/utils/clear-object";
 
 interface IProps {
@@ -79,17 +77,14 @@ prop.modalConfig.formItem.forEach((item) => {
 let dialogFormVisible = ref(false);
 const systemStore = useSystemStore();
 
-const mainStore = useMainStore();
-mainStore.getRoleAndDepartmentActions();
-// 结构出部门列表
-
 // 标识当前是否是修改数据
 let isUpdate = ref(false);
 // 打开对话框
 function openDialog(updateInfo: any) {
-  resetForm();
-  //   clearObject(formData);
+  //   resetForm();
+  clearObject(formData);
   if (updateInfo) {
+    console.log("修改模式");
     isUpdate.value = true;
     formData.id = updateInfo.id;
     for (let key in formData) {
@@ -102,6 +97,7 @@ function openDialog(updateInfo: any) {
       delete formData[emptyAttrObj.prop];
     }
   } else {
+    if ("id" in formData) delete formData.id;
     isUpdate.value = false;
   }
   dialogFormVisible.value = true;
@@ -111,13 +107,14 @@ const addFormRef = ref<FormInstance>();
 
 // 重置表单
 function resetForm() {
+  console.log("重置表单");
   addFormRef.value?.resetFields();
 }
 
-// 对话框关闭的回调
-function handleClose() {
-  resetForm();
-}
+// // 对话框关闭的回调
+// function handleClose() {
+//   resetForm();
+// }
 
 // 确定添加/修改
 function enterAddUser() {
