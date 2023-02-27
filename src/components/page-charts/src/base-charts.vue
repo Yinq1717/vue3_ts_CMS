@@ -7,31 +7,33 @@
 <script setup lang="ts">
 import * as echarts from "echarts";
 import type { EChartsOption } from "echarts";
-import { ref, onMounted, watch, reactive } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 
 interface IProps {
-  option: EChartsOption;
+  options: EChartsOption;
 }
 const props = defineProps<IProps>();
 
 const chartsRef = ref<HTMLElement>();
+
 onMounted(() => {
   // 初始化Echarts
-  const charts = echarts.init(chartsRef.value!);
+  const echartsInstance = echarts.init(chartsRef.value!);
   //  配置
-  watch(
-    () => props.option,
-    (newValue) => {
-      charts.setOption(newValue);
-    }
-  );
+  watchEffect(() => {
+    echartsInstance.setOption(props.options);
+  });
+
+  window.addEventListener("resize", () => {
+    echartsInstance.resize();
+  });
 });
 </script>
 
 <style lang="scss" scoped>
 .home {
   .charts-container {
-    height: 300px;
+    height: 360px;
   }
 }
 </style>

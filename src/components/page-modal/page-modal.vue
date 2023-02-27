@@ -58,7 +58,10 @@ import { ref, reactive } from "vue";
 import type { FormInstance } from "element-plus";
 import useSystemStore from "@/store/main/system";
 import clearObject from "@/utils/clear-object";
+import useMainStore from "@/store/main/main";
 
+//   if (token) {
+//   }
 interface IProps {
   modalConfig: {
     title: string;
@@ -79,9 +82,9 @@ const systemStore = useSystemStore();
 
 // 标识当前是否是修改数据
 let isUpdate = ref(false);
+const mainStore = useMainStore();
 // 打开对话框
 function openDialog(updateInfo: any) {
-  //   resetForm();
   clearObject(formData);
   if (updateInfo) {
     console.log("修改模式");
@@ -110,11 +113,6 @@ function resetForm() {
   console.log("重置表单");
   addFormRef.value?.resetFields();
 }
-
-// // 对话框关闭的回调
-// function handleClose() {
-//   resetForm();
-// }
 
 // 确定添加/修改
 function enterAddUser() {

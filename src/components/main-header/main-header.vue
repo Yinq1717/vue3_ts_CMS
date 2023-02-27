@@ -18,7 +18,8 @@
           <div class="name-dropdown">
             <el-dropdown>
               <span class="el-dropdown-link">
-                {{ userInfo.name }}
+                {{ "Bulu" }}
+                <!-- {{ userInfo.name }} -->
               </span>
               <template #dropdown>
                 <el-dropdown-menu>

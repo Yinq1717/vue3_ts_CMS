@@ -1,5 +1,5 @@
 <template>
-  <div class="pie-charts">
+  <div class="rose-charts">
     <base-charts :options="options"></base-charts>
   </div>
 </template>
@@ -7,20 +7,21 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { EChartsOption } from "echarts";
-import baseCharts from "./base-charts.vue";
 import type { IEchartsValueType } from "../types";
-
 interface IProps {
   data: IEchartsValueType[];
 }
 const props = defineProps<IProps>();
-const options = computed<EChartsOption>(() => {
+const options = computed((): EChartsOption => {
   return {
+    //  legend: {
+    //    top: "bottom",
+    //  },
+
     tooltip: {
       trigger: "item",
-    },
-    legend: {
-      left: "center",
+      formatter: "{b}  :  {c} ({d}%)",
+      // position: ["20%", "20%"],
     },
     color: [
       "#e7bcf3",
@@ -33,24 +34,23 @@ const options = computed<EChartsOption>(() => {
     ],
     series: [
       {
-        name: "类别数量",
+        name: "销售数量",
         type: "pie",
-        radius: "50%",
-        data: props.data,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
-          },
+        radius: [30, 150],
+        center: ["50%", "50%"],
+        roseType: "area",
+        itemStyle: {
+          borderRadius: 8,
         },
+        label: {
+          show: false,
+          position: "center",
+        },
+        data: props.data,
       },
     ],
   };
 });
 </script>
 
-<style lang="scss" scoped>
-.pie-charts {
-}
-</style>
+<style lang="scss" scoped></style>

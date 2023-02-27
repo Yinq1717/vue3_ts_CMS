@@ -34,7 +34,7 @@ const useSystemStore = defineStore("system", {
       const { code } = await reqDeletePage(pageName, id);
       if (code === 0) {
         this.getPageListAction(pageName);
-        mainStore.getRoleAndDepartmentActions();
+        //   mainStore.getRoleAndDepartmentActions();
         ElMessage.success("删除成功!");
       }
     },
@@ -44,7 +44,7 @@ const useSystemStore = defineStore("system", {
       const { code } = await reqUpdatePage(pageName, id, formData);
       if (code === 0) {
         this.getPageListAction(pageName);
-        mainStore.getRoleAndDepartmentActions();
+        //   mainStore.getRoleAndDepartmentActions();
         ElMessage.success("修改成功!");
       }
     },
@@ -54,7 +54,7 @@ const useSystemStore = defineStore("system", {
       const { code } = await reqAddPage(pageName, userInfo);
       if (code === 0) {
         this.getPageListAction(pageName);
-        mainStore.getRoleAndDepartmentActions();
+        //   mainStore.getRoleAndDepartmentActions();
         ElMessage.success("修改成功!");
       }
     },

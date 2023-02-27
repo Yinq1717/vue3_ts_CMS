@@ -1,3 +1,5 @@
+import { LOGIN_TOKEN } from "@/global/contansts";
+import { localCache } from "@/utils/cache";
 import { createPinia } from "pinia";
 import type { App } from "vue";
 const pinia = createPinia();
@@ -9,7 +11,10 @@ function registerStore(app: App<Element>) {
   const loginStore = useLoginStore();
   const mainStore = useMainStore();
   loginStore.loadLocalCacheACtion();
-  mainStore.getRoleAndDepartmentActions();
+  const token = localCache.getCache(LOGIN_TOKEN);
+  if (token) {
+    mainStore.getRoleAndDepartmentActions();
+  }
 }
 
 export default registerStore;

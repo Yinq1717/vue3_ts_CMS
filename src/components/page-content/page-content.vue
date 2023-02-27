@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { formatUTC } from "@/utils/time-format";
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import useSystemStore from "@/store/main/system";
 import { usePermissions } from "@/hooks/usePermissions";
@@ -132,8 +132,9 @@ systemStore.$onAction(({ name, after }) => {
     }
   });
 });
-getPageList();
-
+onMounted(() => {
+  getPageList();
+});
 // 结构出store中的数据(响应式的)
 const { pageList, pageCount } = storeToRefs(systemStore);
 
