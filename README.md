@@ -1,46 +1,32 @@
-项目架构：Vue3、TS、Pinia、Axios、Element Plus、Echarts，使用 Vite 进行搭建
+# vue3_ts_cms
 
 ## 项目架构
 
-## Recommended IDE Setup
+Vue3、TS、Pinia、Axios、Element Plus、Echarts，使用 Vite 进行搭建
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 项目要点
 
-## Type Support for `.vue` Imports in TS
+- 根据用户的权限动态注册路由，展示其对应的菜单目录以及 CRUD 按钮的展示
+- 对 Axios 进行二次封装，拓展其功能，可以给不同的 request 实例与请求添加不同的请求响应拦截器
+- 使用 Element Plus 的 menu 组件结合 vue-router 实现点击菜单切换路由
+- 在 Element Plus 基础上封装了 search、content、dialog 三个通用组件，可接收配置信息结合 hook 快速开发页面
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+项目启动步骤 安装包（这里需要使用 npm 进行安装，如果用 cnpm 或者 yarn 会有热更新失效的问题） npm install 开发运行 npm run dev 生产打包 npm run build
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## 项目启动步骤
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发运行
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 打包
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
