@@ -1,46 +1,41 @@
 # vue3_ts_cms
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 项目架构
 
-## Type Support for `.vue` Imports in TS
+Vue3、TS、Pinia、Axios、Element Plus、Echarts，使用Vite进行搭建
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 项目要点 
 
-## Customize configuration
+- 根据用户的权限动态注册路由，展示其对应的菜单目录以及CRUD按钮的展示 
+- 对Axios进行二次封装，拓展其功能，可以给不同的request实例与请求添加不同的请求响应拦截器 
+- 使用Element Plus的menu组件结合vue-router实现点击菜单切换路由 
+- 在Element Plus基础上封装了search、content、dialog三个通用组件，可接收配置信息结合hook快速开发页面
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+项目启动步骤 安装包（这里需要使用npm进行安装，如果用cnpm或者yarn会有热更新失效的问题） npm install 开发运行 npm run dev 生产打包 npm run build
 
-## Project Setup
+
+
+## 项目启动步骤
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发运行
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 打包
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+
