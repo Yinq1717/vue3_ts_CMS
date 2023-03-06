@@ -11,8 +11,16 @@
          />
       </div>
       <div class="btn-container">
-         <el-button type="primary" @click="save">保存</el-button>
-         <el-button>重置</el-button>
+         <el-tooltip content="保存你的故事" placement="top">
+            <el-button
+               type="success"
+               @click="save"
+               size="large"
+               plain
+               circle
+               icon="Promotion"
+            ></el-button>
+         </el-tooltip>
       </div>
    </div>
 </template>
@@ -46,6 +54,7 @@ const handleCreated = editor => {
 // 保存故事
 function save() {
    const content: string = editorRef.value.getText();
+   if (!content) return ElMessage.warning("输入不能为空");
    request
       .post({
          url: "/story",
@@ -63,18 +72,15 @@ function save() {
 
 <style lang="scss" scoped>
 .chat {
+   position: relative;
    .btn-container {
       // border: 1px solid red;
-      position: fixed;
-      left: 50%;
-      bottom: 16%;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #000;
       padding: 20px;
-      background-color: #eee;
-      .el-button {
-         padding: 10px 30px;
-      }
+      // background-color: #eee;
    }
 }
 </style>
