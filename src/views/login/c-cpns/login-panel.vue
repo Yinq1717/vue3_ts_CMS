@@ -28,9 +28,21 @@
          </el-tab-pane>
       </el-tabs>
       <div class="controls">
-         <el-checkbox v-model="isRmbPwd" label="记住密码" color="red" size="small"></el-checkbox>
+         <el-checkbox
+            v-model="isRmbPwd"
+            label="记住密码"
+            color="red"
+            size="small"
+            v-if="loginMode === 'account'"
+         ></el-checkbox>
 
-         <el-link type="primary" :underline="false" style="font-size: 12px">忘记密码</el-link>
+         <el-link
+            type="primary"
+            :underline="false"
+            style="font-size: 12px"
+            v-if="loginMode === 'account'"
+            >忘记密码</el-link
+         >
       </div>
       <div class="login-btn">
          <el-button type="primary" size="large" @click="handlerLogin">立即登录</el-button>
@@ -79,13 +91,28 @@ function handlerTabChange() {
    width: 320px;
    height: 300px;
    padding: 20px 40px 40px;
-   //   border: 1px solid red;
-   background-color: #fff;
    border-radius: 20px;
-   box-shadow: 0 0 20px #000;
+   background-color: #fff;
+   position: relative;
+   // box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.5);
+   // box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.5);
+   // box-shadow: 0 0 1px rgba($color: #aaa, $alpha: 0.5);
+
+   // background-color: rgba($color: #fff, $alpha: 0.1);
+   // .el-tabs--border-card {
+   //    background-color: transparent;
+   //    border: none;
+   //    ::v-deep(.el-input__wrapper) {
+   //       background-color: transparent;
+   //       box-shadow: 0 0 1px rgba($color: #000, $alpha: 1);
+   //       // box-shadow: 0 0 1px rgba($color: #aaa, $alpha: 0.5);
+   //    }
+   // }
    .title {
       text-align: center;
       margin-bottom: 20px;
+      // text-shadow: 0 0 2px #fff;
+      // color: transparent;
    }
    .demo-tabs {
       .custom-tabs-label {
@@ -108,11 +135,25 @@ function handlerTabChange() {
    }
 
    .login-btn {
-      //  margin-top: 10px;
-      width: 100%;
+      width: 80%;
       margin: 0 auto;
+      left: 0;
+      right: 0;
+      // border: 1px solid red;
+      bottom: 24px;
+      position: absolute;
       .el-button {
          width: 100%;
+         // background-color: rgba($color: #409eff, $alpha: 0);
+         // color: #409eff;
+         // border: none;
+         // box-shadow: 0 0 1px rgba($color: #409eff, $alpha: 1);
+         // box-shadow: 0 0 1px rgba($color: #aaa, $alpha: 0.5);
+         // transition: all 0.3s;
+         // &:hover {
+         //    color: #409eff;
+         //    border: 1px solid #409eff;
+         // }
       }
    }
 }

@@ -1,30 +1,30 @@
 <template>
-  <div class="role">
-    <page-search
-      :search-config="searchConfig"
-      @queryEvent="handleQuery"
-      @resetFormEvent="handleResetForm"
-    ></page-search>
-    <page-content
-      :content-config="contentConfig"
-      ref="contentRef"
-      @addPageEvent="handleAddEvent"
-      @updatePageEvent="handleUpdateEvent"
-    >
-    </page-content>
-    <page-modal ref="modalRef" :modal-config="modalConfig">
-      <template #menuList="{ formData }">
-        <el-tree
-          :data="menuList"
-          ref="treeRef"
-          :props="{ label: 'name' }"
-          node-key="id"
-          show-checkbox
-          :default-checked-keys="defaultCheckIdList"
-          @check="(...event) => handleTreeCheck(event, formData)"
-        /> </template
-    ></page-modal>
-  </div>
+   <div class="role">
+      <page-search
+         :search-config="searchConfig"
+         @queryEvent="handleQuery"
+         @resetFormEvent="handleResetForm"
+      ></page-search>
+      <page-content
+         :content-config="contentConfig"
+         ref="contentRef"
+         @addPageEvent="handleAddEvent"
+         @updatePageEvent="handleUpdateEvent"
+      >
+      </page-content>
+      <page-modal ref="modalRef" :modal-config="modalConfig">
+         <template #menuList="{ formData }">
+            <el-tree
+               :data="menuList"
+               ref="treeRef"
+               :props="{ label: 'name' }"
+               node-key="id"
+               show-checkbox
+               :default-checked-keys="defaultCheckIdList"
+               @check="(...event) => handleTreeCheck(event, formData)"
+            /> </template
+      ></page-modal>
+   </div>
 </template>
 
 <script setup lang="ts">
@@ -56,26 +56,23 @@ const { menuList } = storeToRefs(mainStore);
 const treeRef = ref<InstanceType<typeof ElTree>>(); //获取到tree组件
 let defaultCheckIdList: number[] = [];
 function Cb(formData?: any) {
-  defaultCheckIdList = []; //清除上次选择的节点记录
-  if (formData) {
-    //   遍历菜单列表,将id添加到默认选中的id数组中
-    defaultCheckIdList = mapMenuToCheckIds(formData.menuList);
-  }
-  // 设置默认选择的tree节点
-  nextTick(() => {
-    treeRef.value?.setCheckedKeys(defaultCheckIdList);
-  });
+   defaultCheckIdList = []; //清除上次选择的节点记录
+   if (formData) {
+      //   遍历菜单列表,将id添加到默认选中的id数组中
+      defaultCheckIdList = mapMenuToCheckIds(formData.menuList);
+   }
+   // 设置默认选择的tree节点
+   nextTick(() => {
+      treeRef.value?.setCheckedKeys(defaultCheckIdList);
+   });
 }
 
 // 处理树节点点击事件
 function handleTreeCheck(events, formData) {
-  const { checkedKeys, halfCheckedKeys } = events[1];
-  formData.menuList = [...checkedKeys, ...halfCheckedKeys];
-  //   formData.menuList = [...checkedKeys];
+   const { checkedKeys, halfCheckedKeys } = events[1];
+   formData.menuList = [...checkedKeys, ...halfCheckedKeys];
+   //   formData.menuList = [...checkedKeys];
 }
 </script>
 
-<style lang="scss" scoped>
-.role {
-}
-</style>
+<style lang="scss" scoped></style>

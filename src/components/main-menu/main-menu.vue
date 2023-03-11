@@ -2,7 +2,7 @@
    <div class="main-menu">
       <div class="logo">
          <img src="@/assets/image/logo.png" />
-         <span class="title" v-show="!isCollapse">Bulu-CMS</span>
+         <span class="title" v-show="!isCollapse">Blue-CMS</span>
       </div>
       <div class="menu" router>
          <el-menu
